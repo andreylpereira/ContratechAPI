@@ -54,16 +54,15 @@ public class ObraService {
 		}).orElseThrow(() -> new NotFoundException("Usuário não encontrado!"));
 	}
 
-	
 	public Obra updateObra(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Obra obra) {
-		
+
 		Usuario usuario = usuarioRepository.getById(usuarioId);
 		Obra recuperarObra = obraRepository.findById(obraId).get();
-		
+
 		recuperarObra.setNomeObra(obra.getNomeObra());
 		recuperarObra.setUsuario(usuario);
 		usuarioRepository.save(usuario);
 		return recuperarObra;
-		
+
 	}
 }
