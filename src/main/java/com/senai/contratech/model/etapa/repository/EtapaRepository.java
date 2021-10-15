@@ -9,6 +9,6 @@ import com.senai.contratech.model.etapa.entity.Etapa;
 
 public interface EtapaRepository extends JpaRepository<Etapa, Long> {
 
-	List<Etapa> findEtapaById(Long obraId);
+	List<Etapa> findAllEtapasByObraId(Long obraId);
 	
 }

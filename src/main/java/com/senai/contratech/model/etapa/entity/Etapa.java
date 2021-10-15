@@ -22,7 +22,6 @@ import com.senai.contratech.model.servico.entity.Servico;
 @Table(name = "Etapas")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Etapa {
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,14 +37,11 @@ public class Etapa {
 
 	@OneToMany(mappedBy = "etapa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Servico> servicos;
-	
-	
+
 	public Etapa() {
 
 	}
 
-	
-	
 	public Etapa(String nomeEtapa) {
 		this.nomeEtapa = nomeEtapa;
 	}
@@ -73,7 +69,6 @@ public class Etapa {
 	public void setObra(Obra obraId) {
 		this.obra = obraId;
 	}
-	
 
 	public List<Servico> getServicos() {
 		return servicos;
@@ -82,6 +77,5 @@ public class Etapa {
 	public void setServicos(List<Servico> servicos) {
 		this.servicos = servicos;
 	}
-
 
 }
