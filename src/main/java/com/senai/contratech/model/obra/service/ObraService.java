@@ -59,8 +59,8 @@ public class ObraService {
 		
 		Usuario usuario = usuarioRepository.getById(usuarioId);
 		Obra recuperarObra = obraRepository.findById(obraId).get();
+		
 		recuperarObra.setNomeObra(obra.getNomeObra());
-		obra.setUsuario(usuario);
 		recuperarObra.setUsuario(usuario);
 		usuarioRepository.save(usuario);
 		return recuperarObra;

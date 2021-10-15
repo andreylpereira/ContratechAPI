@@ -12,13 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.senai.contratech.model.etapa.repository.EtapaRepository;
 import com.senai.contratech.model.obra.entity.Obra;
-import com.senai.contratech.model.obra.repository.ObraRepository;
 import com.senai.contratech.model.obra.service.ObraService;
-import com.senai.contratech.model.usuario.entity.Usuario;
-import com.senai.contratech.model.usuario.repository.UsuarioRepository;
 
 import javassist.NotFoundException;
 
@@ -28,20 +23,7 @@ public class ObraController {
 
 	@Autowired
 	private ObraService obraService;
-	
-	
-	@Autowired
-	private ObraRepository obraRepository;
 
-	@Autowired
-	private UsuarioRepository usuarioRepository;
-
-	@Autowired
-	private EtapaRepository etapaRepository;
-
-	
-	
-	
 
 	@GetMapping("/usuarios/{usuarioId}/obras")
 	public List<Obra> PuxarTodasObrasDoUsuario(@PathVariable Long usuarioId)
@@ -68,6 +50,7 @@ public class ObraController {
 		return obraService.updateObra(usuarioId, obraId, obra);
 		
 	}
+	
 
 	//funcionou
 //	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}")
