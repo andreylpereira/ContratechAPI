@@ -35,8 +35,7 @@ public class ObraService {
 		return obraRepository.findByObraId(usuarioId);
 	}
 
-	public List<Obra> findByObraId(@PathVariable Long usuarioId, @PathVariable Long obraId)
-			throws NotFoundException {
+	public List<Obra> findByObraId(@PathVariable Long usuarioId, @PathVariable Long obraId) throws NotFoundException {
 
 		if (!usuarioRepository.existsById(usuarioId)) {
 			throw new NotFoundException("Usuário não encontrado!");
