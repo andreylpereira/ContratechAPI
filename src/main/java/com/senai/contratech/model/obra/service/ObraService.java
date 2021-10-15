@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.senai.contratech.model.etapa.repository.EtapaRepository;
 import com.senai.contratech.model.obra.entity.Obra;
 import com.senai.contratech.model.obra.repository.ObraRepository;
+import com.senai.contratech.model.usuario.entity.Usuario;
 import com.senai.contratech.model.usuario.repository.UsuarioRepository;
 
 import javassist.NotFoundException;
@@ -53,4 +54,16 @@ public class ObraService {
 		}).orElseThrow(() -> new NotFoundException("Usuário não encontrado!"));
 	}
 
+	
+	public Obra updateObra(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Obra obra) {
+		
+		Usuario usuario = usuarioRepository.getById(usuarioId);
+		Obra recuperarObra = obraRepository.findById(obraId).get();
+		recuperarObra.setNomeObra(obra.getNomeObra());
+		obra.setUsuario(usuario);
+		recuperarObra.setUsuario(usuario);
+		usuarioRepository.save(usuario);
+		return recuperarObra;
+		
+	}
 }

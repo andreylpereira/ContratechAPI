@@ -64,14 +64,8 @@ public class ObraController {
 	
 	
 	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}")
-	public void EditarObra(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Obra obra) {
-		
-		Usuario usuario = usuarioRepository.getById(usuarioId);
-		Obra recuperarObra = obraRepository.findById(obraId).get();
-		recuperarObra.setNomeObra(obra.getNomeObra());
-		obra.setUsuario(usuario);
-		recuperarObra.setUsuario(usuario);
-		usuarioRepository.save(usuario);
+	public Obra editarObra(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Obra obra) {
+		return obraService.updateObra(usuarioId, obraId, obra);
 		
 	}
 
