@@ -35,7 +35,7 @@ public class ServicoService {
 		return servicoRepository.findAllServicosByIds(etapaId);
 }
 
-	public void addService(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
+	public void addServico(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
 			@RequestBody Servico servico) {
 		Etapa etapa = etapaRepository.findEtapa(usuarioId, obraId, etapaId);
 		servico.setEtapa(etapa);
@@ -45,5 +45,11 @@ public class ServicoService {
 		servico.setPreco(0);
 		etapa.getServicos().add(servico);
 		etapaRepository.save(etapa);
+	}
+	
+	
+	public void delServico(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId, @PathVariable Long servicoId) {
+		Servico servico = servicoRepository.findById(servicoId).get();
+		servicoRepository.deleteById(servico.getId());
 	}
 }

@@ -3,10 +3,10 @@ package com.senai.contratech.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.senai.contratech.model.servico.entity.Servico;
@@ -26,10 +26,15 @@ public class ServicoController {
 	}
 	
 	@PostMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos")
-	public void adicionarEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId, Servico servico) {
-		servicoService.addService(usuarioId, obraId, etapaId, servico);
+	public void adicionarServico(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId, Servico servico) {
+		servicoService.addServico(usuarioId, obraId, etapaId, servico);
 	}
-
+	
+	@DeleteMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/{servicoId}")
+	public void deletarServico(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId, @PathVariable Long servicoId) {
+		
+		servicoService.delServico(usuarioId, obraId, etapaId, servicoId);
+	} 
 }
 
 
