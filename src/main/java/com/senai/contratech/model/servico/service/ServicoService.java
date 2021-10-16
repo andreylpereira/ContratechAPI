@@ -14,6 +14,7 @@ import com.senai.contratech.model.servico.entity.Servico;
 import com.senai.contratech.model.servico.repository.ServicoRepository;
 import com.senai.contratech.model.usuario.repository.UsuarioRepository;
 
+
 @Service
 public class ServicoService {
 
@@ -31,11 +32,11 @@ public class ServicoService {
 	
 	public List<Servico> findByIds(@PathVariable Long usuarioId, @PathVariable Long obraId,
 			@PathVariable Long etapaId) {
-
 		return servicoRepository.findAllServicosByIds(etapaId);
 }
 
-	public void addServico(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
+	public void addServico(@PathVariable Long usuarioId, @PathVariable Long obraId, 
+			@PathVariable Long etapaId,
 			@RequestBody Servico servico) {
 		Etapa etapa = etapaRepository.findEtapa(usuarioId, obraId, etapaId);
 		servico.setEtapa(etapa);
@@ -48,8 +49,17 @@ public class ServicoService {
 	}
 	
 	
-	public void delServico(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId, @PathVariable Long servicoId) {
+	public void delServico(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId, 
+			@PathVariable Long servicoId) {
 		Servico servico = servicoRepository.findById(servicoId).get();
-		servicoRepository.deleteById(servico.getId());
+		servicoRepository.deleteById(servico.getId());	
+	}
+	
+	
+	public void delAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId,
+			@PathVariable Long etapaId) {
+		List<Servico> lista = servicoRepository.findAllServicosByIds(etapaId);
+				lista.forEach(servico -> servicoRepository.deleteById(servico.getId()));
+					
 	}
 }

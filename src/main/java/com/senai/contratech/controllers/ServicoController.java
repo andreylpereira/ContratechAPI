@@ -32,9 +32,13 @@ public class ServicoController {
 	
 	@DeleteMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/{servicoId}")
 	public void deletarServico(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId, @PathVariable Long servicoId) {
-		
 		servicoService.delServico(usuarioId, obraId, etapaId, servicoId);
-	} 
+	}
+	
+	@DeleteMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/")
+	public void deletarTodosServicos (Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId) {
+		servicoService.delAllServicos(usuarioId, obraId, etapaId);
+	}
 }
 
 
