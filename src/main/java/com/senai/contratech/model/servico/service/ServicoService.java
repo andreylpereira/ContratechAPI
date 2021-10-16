@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.senai.contratech.model.etapa.entity.Etapa;
 import com.senai.contratech.model.etapa.repository.EtapaRepository;
-import com.senai.contratech.model.obra.entity.Obra;
 import com.senai.contratech.model.obra.repository.ObraRepository;
 import com.senai.contratech.model.servico.entity.Servico;
 import com.senai.contratech.model.servico.repository.ServicoRepository;

@@ -16,5 +16,5 @@ public interface ObraRepository extends JpaRepository<Obra, Long> {
 	List<Obra> findByObraId(@Param("usuarioId") Long usuarioId);
 
 	@Query(value = "SELECT * FROM obras WHERE usuario_id = :usuarioId and id = :obraId", nativeQuery = true)
-	List<Obra> findByUsuarioObraId(@Param("usuarioId") Long usuarioId, @Param("obraId") Long obraId);
+	Obra findByUsuarioObraId(@Param("usuarioId") Long usuarioId, @Param("obraId") Long obraId);
 }

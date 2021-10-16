@@ -3,6 +3,7 @@ package com.senai.contratech.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,6 +47,11 @@ public class EtapaController {
 			@RequestBody Etapa etapa) {
 		return etapaService.updateEtapa(usuarioId, obraId, etapaId, etapa);
 
+	}
+	
+	@DeleteMapping("/{usuarioId}/obras/{obraId}/etapas/{etapaId}")
+	public void deleteEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId) {		
+		etapaService.delEtapa(usuarioId, obraId, etapaId);
 	}
 
 }

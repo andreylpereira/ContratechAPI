@@ -58,4 +58,11 @@ public class EtapaService {
 		obraRepository.save(obra);
 		return etapa;
 	}
+	
+	public void delEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId,
+			@PathVariable Long etapaId) {
+		Etapa etapa = etapaRepository.findEtapa(usuarioId, obraId, etapaId);
+		etapaRepository.delete(etapa);
+	}
+	
 }

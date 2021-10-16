@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.senai.contratech.model.etapa.entity.Etapa;
@@ -32,6 +35,7 @@ public class Servico{
 	private int porcentagem;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "etapa_id", nullable = false)
 	@JsonIgnore
 	private Etapa etapa;
