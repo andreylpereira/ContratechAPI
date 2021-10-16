@@ -60,15 +60,15 @@ public class ServicoService {
 	}
 
 	// atualizar
-	public void putAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
-			@RequestBody List<Servico> servicos) {
-
-		Obra obra = obraRepository.findById(obraId).get();
-		Etapa recuperarEtapa = etapaRepository.findEtapa(usuarioId, obraId, etapaId);
-		recuperarEtapa.setServicos(servicos);
-		recuperarEtapa.setObra(obra);
-		obraRepository.save(obra);
-
-	}
+//	public void putAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
+//			@RequestBody List<Servico> servicos) {
+//
+//		Obra obra = obraRepository.findById(obraId).get();
+//		Etapa recuperarEtapa = etapaRepository.findEtapa(usuarioId, obraId, etapaId);
+//		recuperarEtapa.setServicos(servicos);
+//		recuperarEtapa.setObra(obra);
+//		obraRepository.save(obra);
+//
+//	}
 
 }
