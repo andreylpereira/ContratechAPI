@@ -52,7 +52,6 @@ public class EtapaService {
 			@RequestBody Etapa etapa) {
 
 		Obra obra = obraRepository.findById(obraId).get();
-		System.out.println(obra.getNomeObra());
 		Etapa recuperarEtapa = etapaRepository.findEtapa(usuarioId, obraId, etapaId);
 		recuperarEtapa.setNomeEtapa(etapa.getNomeEtapa());
 		etapa.setObra(obra);
