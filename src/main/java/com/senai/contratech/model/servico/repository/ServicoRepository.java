@@ -14,6 +14,5 @@ public interface ServicoRepository extends JpaRepository<Servico, Long>  {
 	List<Servico> findAllServicosByIds(
 			//@Param("usuarioId") Long usuarioId, @Param("obraId") Long obraId, 
 			@Param("idEtapa") Long EtapaId);
-	
 
 }

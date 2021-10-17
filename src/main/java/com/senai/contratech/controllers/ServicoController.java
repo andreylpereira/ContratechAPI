@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,11 +45,11 @@ public class ServicoController {
 	
 	
 	//atualizar
-//	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/atualizar")
-//	public void atualizarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId, @RequestBody List<Servico> servicos) {
-//		servicoService.putAllServicos(usuarioId, obraId, etapaId, servicos);
-//
-//	}
+	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/atualizar")
+	public void atualizarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId, @RequestBody List<Servico> servicos) {
+		//servicoService.putAllServicos(usuarioId, obraId, etapaId, servicos);
+
+	}
 	
 }
 

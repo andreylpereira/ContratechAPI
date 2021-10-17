@@ -58,16 +58,23 @@ public class ServicoService {
 
 	}
 
-	// atualizar
+//	// atualizar (fazer uma query dinamica pra atualizar a tabela servicos)
 //	public void putAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
 //			@RequestBody List<Servico> servicos) {
 //
-//		Obra obra = obraRepository.findById(obraId).get();
-//		Etapa recuperarEtapa = etapaRepository.findEtapa(usuarioId, obraId, etapaId);
-//		recuperarEtapa.setServicos(servicos);
-//		recuperarEtapa.setObra(obra);
-//		obraRepository.save(obra);
+//		Optional<Etapa> findEtapa = null;
+//		findEtapa = etapaRepository.findById(etapaId);
+//		Etapa etapa = new Etapa();
 //
+//		if (!findEtapa.isEmpty()) {
+//			etapa.setId(findEtapa.get().getId());
+//			etapa.setObra(findEtapa.get().getObra());
+//			etapa.setNomeEtapa(findEtapa.get().getNomeEtapa());
+//			etapa.setServicos(servicos);
+//			servicos.forEach(a -> a.setEtapa(etapa));
+//		}
+//
+//		etapaRepository.save(etapa);
 //	}
 
 }
