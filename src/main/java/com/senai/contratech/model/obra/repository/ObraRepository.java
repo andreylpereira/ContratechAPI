@@ -13,11 +13,8 @@ import com.senai.contratech.model.obra.entity.Obra;
 public interface ObraRepository extends JpaRepository<Obra, Long> {
 	
 	@Query(value = "SELECT * FROM obras WHERE usuario_id = :usuarioId", nativeQuery = true)
-	List<Obra> findObraById(@Param("usuarioId") Long usuarioId);
+	List<Obra> findByObraId(@Param("usuarioId") Long usuarioId);
 
 	@Query(value = "SELECT * FROM obras WHERE usuario_id = :usuarioId and id = :obraId", nativeQuery = true)
-	List<Obra> findUsuarioObraById(@Param("usuarioId") Long usuarioId, @Param("obraId") Long obraId);
-
-	@Query(value = "SELECT * FROM obras WHERE usuario_id = :usuarioId and id = :obraId", nativeQuery = true)
-	boolean findUsuarioObraByIdBoolean(@Param("usuarioId") Long usuarioId, @Param("obraId") Long obraId);
+	Obra findByUsuarioObraId(@Param("usuarioId") Long usuarioId, @Param("obraId") Long obraId);
 }

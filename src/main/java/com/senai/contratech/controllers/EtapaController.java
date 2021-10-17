@@ -3,18 +3,17 @@ package com.senai.contratech.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.senai.contratech.model.etapa.entity.Etapa;
-import com.senai.contratech.model.etapa.repository.EtapaRepository;
 import com.senai.contratech.model.etapa.service.EtapaService;
-import com.senai.contratech.model.obra.repository.ObraRepository;
-import com.senai.contratech.model.usuario.repository.UsuarioRepository;
 
 import javassist.NotFoundException;
 
@@ -23,30 +22,36 @@ import javassist.NotFoundException;
 public class EtapaController {
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
-
-	@Autowired
-	private ObraRepository obraRepository;
-
-	@Autowired
-	private EtapaRepository etapaRepository;
-	
-	@Autowired
 	private EtapaService etapaService;
 
 	@GetMapping("/{usuarioId}/obras/{obraId}/etapas")
-	public List<Etapa> getObrasByUsuarioId(@PathVariable Long usuarioId, @PathVariable Long obraId)
+	public List<Etapa> puxarObrasDoUsuario(@PathVariable Long usuarioId, @PathVariable Long obraId)
 			throws NotFoundException {
-
-		if (!usuarioRepository.existsById(usuarioId) && !obraRepository.existsById(obraId)) {
-			throw new NotFoundException("Usuário e/ou obra não encontrado(s)!");
-		}
-		return etapaRepository.findEtapaById(obraId);
+		return etapaService.findByObraId(usuarioId, obraId);
 	}
 
+	@GetMapping("/{usuarioId}/obras/{obraId}/etapas/{etapaId}")
+	public Etapa puxarEtapaDaObra(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId)
+			throws NotFoundException {
+		etapaService.findByIdsEtapa(usuarioId, obraId, etapaId);
+		return etapaService.findByIdsEtapa(usuarioId, obraId, etapaId);
+	}
 
 	@PostMapping("/{usuarioId}/obras/{obraId}/etapas")
-	public void addEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Etapa etapa) {
+	public void adicionarEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Etapa etapa) {
 		etapaService.addEtapa(usuarioId, obraId, etapa);
 	}
+
+	@PutMapping("/{usuarioId}/obras/{obraId}/etapas/{etapaId}")
+	public Etapa editarEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
+			@RequestBody Etapa etapa) {
+		return etapaService.updateEtapa(usuarioId, obraId, etapaId, etapa);
+
+	}
+	
+	@DeleteMapping("/{usuarioId}/obras/{obraId}/etapas/{etapaId}")
+	public void deleteEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId) {		
+		etapaService.delEtapa(usuarioId, obraId, etapaId);
+	}
+
 }

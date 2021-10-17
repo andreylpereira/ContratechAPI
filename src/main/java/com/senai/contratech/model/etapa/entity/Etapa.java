@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.senai.contratech.model.obra.entity.Obra;
@@ -22,7 +25,6 @@ import com.senai.contratech.model.servico.entity.Servico;
 @Table(name = "Etapas")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Etapa {
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,20 +34,18 @@ public class Etapa {
 	private String nomeEtapa;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "obra_id", nullable = false)
 	@JsonIgnore
 	private Obra obra;
 
 	@OneToMany(mappedBy = "etapa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Servico> servicos;
-	
-	
+
 	public Etapa() {
 
 	}
 
-	
-	
 	public Etapa(String nomeEtapa) {
 		this.nomeEtapa = nomeEtapa;
 	}
@@ -73,7 +73,6 @@ public class Etapa {
 	public void setObra(Obra obraId) {
 		this.obra = obraId;
 	}
-	
 
 	public List<Servico> getServicos() {
 		return servicos;
@@ -82,6 +81,5 @@ public class Etapa {
 	public void setServicos(List<Servico> servicos) {
 		this.servicos = servicos;
 	}
-
 
 }
