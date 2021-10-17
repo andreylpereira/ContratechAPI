@@ -1,6 +1,7 @@
 package com.senai.contratech.model.servico.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,23 +59,23 @@ public class ServicoService {
 
 	}
 
-//	// atualizar (fazer uma query dinamica pra atualizar a tabela servicos)
-//	public void putAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
-//			@RequestBody List<Servico> servicos) {
-//
-//		Optional<Etapa> findEtapa = null;
-//		findEtapa = etapaRepository.findById(etapaId);
-//		Etapa etapa = new Etapa();
-//
-//		if (!findEtapa.isEmpty()) {
-//			etapa.setId(findEtapa.get().getId());
-//			etapa.setObra(findEtapa.get().getObra());
-//			etapa.setNomeEtapa(findEtapa.get().getNomeEtapa());
-//			etapa.setServicos(servicos);
-//			servicos.forEach(a -> a.setEtapa(etapa));
-//		}
-//
-//		etapaRepository.save(etapa);
-//	}
+
+	public void putAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
+			@RequestBody List<Servico> servicos) {
+
+		Optional<Etapa> findEtapa = null;
+		findEtapa = etapaRepository.findById(etapaId);
+		Etapa etapa = new Etapa();
+
+		if (!findEtapa.isEmpty()) {
+			etapa.setId(findEtapa.get().getId());
+			etapa.setObra(findEtapa.get().getObra());
+			etapa.setNomeEtapa(findEtapa.get().getNomeEtapa());
+			etapa.setServicos(servicos);
+			servicos.forEach(a -> a.setEtapa(etapa));
+		}
+
+		etapaRepository.save(etapa);
+	}
 
 }

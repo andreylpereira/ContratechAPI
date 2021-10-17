@@ -15,43 +15,40 @@ import org.springframework.web.bind.annotation.RestController;
 import com.senai.contratech.model.servico.entity.Servico;
 import com.senai.contratech.model.servico.service.ServicoService;
 
-
 @RestController
 @RequestMapping(value = "/api")
 public class ServicoController {
-	
+
 	@Autowired
 	private ServicoService servicoService;
-	
+
 	@GetMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos")
-	public List<Servico> puxarListaServicosPelasIds(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId) {
+	public List<Servico> puxarListaServicosPelasIds(@PathVariable Long usuarioId, @PathVariable Long obraId,
+			@PathVariable Long etapaId) {
 		return servicoService.findByIds(usuarioId, obraId, etapaId);
 	}
-	
+
 	@PostMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos")
-	public void adicionarServico(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId, Servico servico) {
+	public void adicionarServico(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
+			Servico servico) {
 		servicoService.addServico(usuarioId, obraId, etapaId, servico);
 	}
-	
+
 	@DeleteMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/{servicoId}")
-	public void deletarServico(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId, @PathVariable Long servicoId) {
+	public void deletarServico(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
+			@PathVariable Long servicoId) {
 		servicoService.delServico(usuarioId, obraId, etapaId, servicoId);
 	}
-	
+
 	@DeleteMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/")
 	public void deletarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId) {
 		servicoService.delAllServicos(usuarioId, obraId, etapaId);
 	}
-	
-	
-	//atualizar
-//	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/atualizar")
-//	public void atualizarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId, @RequestBody List<Servico> servicos) {
-//		servicoService.putAllServicos(usuarioId, obraId, etapaId, servicos);
-//
-//	}
-	
+
+	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/atualizar")
+	public void atualizarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
+			@RequestBody List<Servico> servicos) {
+		servicoService.putAllServicos(usuarioId, obraId, etapaId, servicos);
+	}
+
 }
-
-
-	
