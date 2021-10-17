@@ -53,12 +53,16 @@ public class ObraController {
 
 	}
 
-	// funcionou
-//	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}")
-//	public void EditarObra(@PathVariable Long usuarioId, @PathVariable int obraId, @RequestBody Obra obra) {
-//		Usuario usuario = usuarioRepository.getById(usuarioId);
-//		obra.setUsuario(usuario);
-//		usuario.getObras().get(obraId-1).setNomeObra(obra.getNomeObra());
-//		usuarioRepository.save(usuario);
-//	}
+	//relatório
+	@GetMapping("/usuarios/{usuarioId}/obras/{obraId}/relatorio")
+	public void puxarRelatorioPelasIds(@PathVariable Long usuarioId, @PathVariable Long obraId)
+			throws NotFoundException {
+		//return obraService.findByObraId(usuarioId, obraId);
+	}
+
+
+
+
+
+
 }
