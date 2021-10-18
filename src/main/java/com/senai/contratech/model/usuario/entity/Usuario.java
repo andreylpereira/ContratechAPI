@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.senai.contratech.model.obra.entity.Obra;
@@ -19,10 +22,17 @@ public class Usuario{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank @Size(min = 6, max= 20, message = "O valor têm que estar entre 5 e 25 caracteres")
 	private String login;
+	@NotBlank
 	private String nome;
+	@NotBlank
 	private String sobrenome;
+	@NotBlank
+	@Email(message = "Email tem que ser válido")
 	private String email;
+	@NotBlank @Size(min = 6, max= 10, message = "O valor têm que estar entre 6 e 10 caracteres")
 	private String senha;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

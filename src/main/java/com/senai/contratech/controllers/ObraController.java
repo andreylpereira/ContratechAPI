@@ -43,12 +43,12 @@ public class ObraController {
 	}
 
 	@DeleteMapping("/usuarios/{usuarioId}/obras/{obraId}")
-	public void deleteObra(@PathVariable Long usuarioId, @PathVariable Long obraId) {
+	public void deleteObra(@PathVariable Long usuarioId, @PathVariable Long obraId) throws NotFoundException {
 		obraService.delObra(usuarioId, obraId);
 	}
 
 	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}")
-	public Obra editarObra(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Obra obra) {
+	public Obra editarObra(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Obra obra) throws NotFoundException {
 		return obraService.updateObra(usuarioId, obraId, obra);
 
 	}

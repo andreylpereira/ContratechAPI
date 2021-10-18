@@ -27,42 +27,62 @@ public class EtapaService {
 	@Autowired
 	private EtapaRepository etapaRepository;
 
-	public void addEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Etapa etapa) {
+	public void addEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Etapa etapa)
+			throws NotFoundException {
 
-		Obra obra = obraRepository.findById(obraId).get();
-		etapa.setObra(obra);
-		obra.getEtapas().add(etapa);
-		obraRepository.save(obra);
+		try {
+			Obra obra = obraRepository.findById(obraId).get();
+			etapa.setObra(obra);
+			obra.getEtapas().add(etapa);
+			obraRepository.save(obra);
+		} catch (Exception e) {
+			throw new NotFoundException("Não foi possível adicionar um etapa nesta obra");
+		}
 	}
 
 	public List<Etapa> findByObraId(@PathVariable Long usuarioId, @PathVariable Long obraId) throws NotFoundException {
 
-		if (!usuarioRepository.existsById(usuarioId) && !obraRepository.existsById(obraId)) {
-			throw new NotFoundException("Usuário e/ou obra não encontrado(s)!");
+		if (!usuarioRepository.existsById(usuarioId) || !obraRepository.existsById(obraId)) {
+			throw new NotFoundException("Não foi possível recuperar a lista de etapas da obra");
 		}
 		return etapaRepository.findAllEtapasByObraId(obraId);
 	}
 
-	public Etapa findByIdsEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId) {
+	public Etapa findByIdsEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId)
+			throws NotFoundException {
 
-		return etapaRepository.findEtapa(usuarioId, obraId, etapaId);
+		try {
+			return etapaRepository.findEtapa(usuarioId, obraId, etapaId);
+		} catch (Exception e) {
+			throw new NotFoundException("Não foi possível recuperar a etapa");
+		}
 	}
 
 	public Etapa updateEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
-			@RequestBody Etapa etapa) {
+			@RequestBody Etapa etapa) throws NotFoundException {
 
-		Obra obra = obraRepository.findById(obraId).get();
-		Etapa recuperarEtapa = etapaRepository.findEtapa(usuarioId, obraId, etapaId);
-		recuperarEtapa.setNomeEtapa(etapa.getNomeEtapa());
-		etapa.setObra(obra);
-		obraRepository.save(obra);
-		return etapa;
+		try {
+			Obra obra = obraRepository.findById(obraId).get();
+			Etapa recuperarEtapa = etapaRepository.findEtapa(usuarioId, obraId, etapaId);
+			recuperarEtapa.setNomeEtapa(etapa.getNomeEtapa());
+			etapa.setObra(obra);
+			obraRepository.save(obra);
+			return etapa;
+
+		} catch (Exception e) {
+			throw new NotFoundException("Não foi possível atualizar o nome da etapa");
+		}
+		
 	}
-	
-	public void delEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId,
-			@PathVariable Long etapaId) {
-		Etapa etapa = etapaRepository.findEtapa(usuarioId, obraId, etapaId);
-		etapaRepository.delete(etapa);
+
+	public void delEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId)
+			throws NotFoundException {
+		try {
+			Etapa etapa = etapaRepository.findEtapa(usuarioId, obraId, etapaId);
+			etapaRepository.delete(etapa);
+		} catch (Exception e) {
+			throw new NotFoundException("Não foi possível deletar a etapa");
+		}
 	}
-	
+
 }
