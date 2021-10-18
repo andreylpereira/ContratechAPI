@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -27,11 +30,19 @@ public class Servico{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Size(min = 5, max= 35, message = "O valor têm que estar entre 5 e 35 caracteres")
 	@Column(name = "nome_servico")
 	private String nomeServico;
-
+	
+	@Min(value = 0, message = "O preço não pode ser menor que zero")
 	private double preco;
+	
+	@Min(value = 0, message = "A quantidade têm que ser entre 0 e 00") 
+	@Max(value = 99, message = "A quantidade têm que ser entre 0 e 00")
 	private int quantidade;
+	 
+	@Min(value = 0, message = "A porcentagem têm que ser entre 0 e 100") 
+	@Max(value = 100, message = "A porcentagem têm que ser entre 0 e 100")
 	private int porcentagem;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)

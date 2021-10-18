@@ -43,22 +43,26 @@ public class ObraController {
 	}
 
 	@DeleteMapping("/usuarios/{usuarioId}/obras/{obraId}")
-	public void deleteObra(@PathVariable Long usuarioId, @PathVariable Long obraId) {
+	public void deleteObra(@PathVariable Long usuarioId, @PathVariable Long obraId) throws NotFoundException {
 		obraService.delObra(usuarioId, obraId);
 	}
 
 	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}")
-	public Obra editarObra(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Obra obra) {
+	public Obra editarObra(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Obra obra) throws NotFoundException {
 		return obraService.updateObra(usuarioId, obraId, obra);
 
 	}
 
-	// funcionou
-//	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}")
-//	public void EditarObra(@PathVariable Long usuarioId, @PathVariable int obraId, @RequestBody Obra obra) {
-//		Usuario usuario = usuarioRepository.getById(usuarioId);
-//		obra.setUsuario(usuario);
-//		usuario.getObras().get(obraId-1).setNomeObra(obra.getNomeObra());
-//		usuarioRepository.save(usuario);
-//	}
+	//relatório
+	@GetMapping("/usuarios/{usuarioId}/obras/{obraId}/relatorio")
+	public void puxarRelatorioPelasIds(@PathVariable Long usuarioId, @PathVariable Long obraId)
+			throws NotFoundException {
+		//return obraService.findByObraId(usuarioId, obraId);
+	}
+
+
+
+
+
+
 }

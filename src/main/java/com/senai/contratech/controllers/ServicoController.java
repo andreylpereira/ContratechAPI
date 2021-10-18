@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.senai.contratech.model.servico.entity.Servico;
 import com.senai.contratech.model.servico.service.ServicoService;
 
+import javassist.NotFoundException;
+
 @RestController
 @RequestMapping(value = "/api")
 public class ServicoController {
@@ -24,30 +26,30 @@ public class ServicoController {
 
 	@GetMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos")
 	public List<Servico> puxarListaServicosPelasIds(@PathVariable Long usuarioId, @PathVariable Long obraId,
-			@PathVariable Long etapaId) {
+			@PathVariable Long etapaId) throws NotFoundException {
 		return servicoService.findByIds(usuarioId, obraId, etapaId);
 	}
 
 	@PostMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos")
 	public void adicionarServico(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
-			Servico servico) {
+			Servico servico) throws NotFoundException {
 		servicoService.addServico(usuarioId, obraId, etapaId, servico);
 	}
 
 	@DeleteMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/{servicoId}")
 	public void deletarServico(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
-			@PathVariable Long servicoId) {
+			@PathVariable Long servicoId) throws NotFoundException {
 		servicoService.delServico(usuarioId, obraId, etapaId, servicoId);
 	}
 
 	@DeleteMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/")
-	public void deletarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId) {
+	public void deletarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId) throws NotFoundException {
 		servicoService.delAllServicos(usuarioId, obraId, etapaId);
 	}
 
 	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/atualizar")
 	public void atualizarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
-			@RequestBody List<Servico> servicos) {
+			@RequestBody List<Servico> servicos) throws NotFoundException {
 		servicoService.putAllServicos(usuarioId, obraId, etapaId, servicos);
 	}
 

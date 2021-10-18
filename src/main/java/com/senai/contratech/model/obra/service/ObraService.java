@@ -31,7 +31,7 @@ public class ObraService {
 	public List<Obra> findAllByObraId(@PathVariable Long usuarioId) throws NotFoundException {
 
 		if (!usuarioRepository.existsById(usuarioId)) {
-			throw new NotFoundException("Usuário não encontrado!");
+			throw new NotFoundException("Não foi possível encontrar a lista de obras pois o usuário não existe");
 		}
 		return obraRepository.findByObraId(usuarioId);
 	}
@@ -39,9 +39,9 @@ public class ObraService {
 	public Obra findByObraId(@PathVariable Long usuarioId, @PathVariable Long obraId) throws NotFoundException {
 
 		if (!usuarioRepository.existsById(usuarioId)) {
-			throw new NotFoundException("Usuário não encontrado!");
+			throw new NotFoundException("Não foi possível encontrar esta obra pois o usuário não existe");
 		} else if (!obraRepository.existsById(obraId)) {
-			throw new NotFoundException("Obra não encontrado!");
+			throw new NotFoundException("Não foi possível encontrar esta obra");
 		}
 
 		return obraRepository.findByUsuarioObraId(usuarioId, obraId);
@@ -51,27 +51,33 @@ public class ObraService {
 		return usuarioRepository.findById(usuarioId).map(usuario -> {
 			obra.setUsuario(usuario);
 			return obraRepository.save(obra);
-		}).orElseThrow(() -> new NotFoundException("Usuário não encontrado!"));
+		}).orElseThrow(() -> new NotFoundException("Não é possível adicionar esta obra"));
 	}
 
-	
-	public void delObra(@PathVariable Long usuarioId, @PathVariable Long obraId) {
-		Obra obra = obraRepository.findByUsuarioObraId(usuarioId, obraId);
-		obraRepository.delete(obra);
-		
+	public void delObra(@PathVariable Long usuarioId, @PathVariable Long obraId) throws NotFoundException {
+		try {
+			Obra obra = obraRepository.findByUsuarioObraId(usuarioId, obraId);
+			obraRepository.delete(obra);
+		} catch (Exception e) {
+			throw new NotFoundException("Não foi possível deletar a obra");
+		}
+
 	}
-	
-	
-	
-	public Obra updateObra(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Obra obra) {
 
-		Usuario usuario = usuarioRepository.getById(usuarioId);
-		Obra recuperarObra = obraRepository.findById(obraId).get();
+	public Obra updateObra(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Obra obra)
+			throws NotFoundException {
 
-		recuperarObra.setNomeObra(obra.getNomeObra());
-		recuperarObra.setUsuario(usuario);
-		usuarioRepository.save(usuario);
-		return recuperarObra;
+		try {
+			Usuario usuario = usuarioRepository.getById(usuarioId);
+			Obra recuperarObra = obraRepository.findById(obraId).get();
+
+			recuperarObra.setNomeObra(obra.getNomeObra());
+			recuperarObra.setUsuario(usuario);
+			usuarioRepository.save(usuario);
+			return recuperarObra;
+		} catch (Exception e) {
+			throw new NotFoundException("Não foi possível atualizar o nome da obra");
+		}
 
 	}
 }

@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -31,6 +32,7 @@ public class Obra {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Size(min = 5, max= 35, message = "O valor têm que estar entre 5 e 35 caracteres")
 	@Column(name = "nome_obra")
 	private String nomeObra;
 

@@ -15,6 +15,8 @@ import com.senai.contratech.model.servico.entity.Servico;
 import com.senai.contratech.model.servico.repository.ServicoRepository;
 import com.senai.contratech.model.usuario.repository.UsuarioRepository;
 
+import javassist.NotFoundException;
+
 @Service
 public class ServicoService {
 
@@ -30,52 +32,78 @@ public class ServicoService {
 	@Autowired
 	ServicoRepository servicoRepository;
 
-	public List<Servico> findByIds(@PathVariable Long usuarioId, @PathVariable Long obraId,
-			@PathVariable Long etapaId) {
-		return servicoRepository.findAllServicosByIds(etapaId);
+	public List<Servico> findByIds(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId)
+			throws NotFoundException {
+		if (!servicoRepository.findAllServicosByIds(etapaId).isEmpty()) {
+			return servicoRepository.findAllServicosByIds(etapaId);
+		} else {
+			throw new NotFoundException("Não foi possível recuperar a lista de serviços dessa etapa.");
+		}
+		
 	}
 
 	public void addServico(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
-			@RequestBody Servico servico) {
-		Etapa etapa = etapaRepository.findEtapa(usuarioId, obraId, etapaId);
-		servico.setEtapa(etapa);
-		servico.setNomeServico("Serviço");
-		servico.setPorcentagem(0);
-		servico.setQuantidade(0);
-		servico.setPreco(0);
-		etapa.getServicos().add(servico);
-		etapaRepository.save(etapa);
+			@RequestBody Servico servico) throws NotFoundException {
+	
+		try {
+			Etapa etapa = etapaRepository.findEtapa(usuarioId, obraId, etapaId);
+			servico.setEtapa(etapa);
+			servico.setNomeServico("Serviço");
+			servico.setPorcentagem(0);
+			servico.setQuantidade(0);
+			servico.setPreco(0);
+			etapa.getServicos().add(servico);
+			etapaRepository.save(etapa);
+		} catch (Exception e) {
+			throw new NotFoundException("Não foi possível adicionar um serviço a lista");
+		
+		}
+
 	}
 
 	public void delServico(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
-			@PathVariable Long servicoId) {
-		Servico servico = servicoRepository.findById(servicoId).get();
-		servicoRepository.deleteById(servico.getId());
-	}
+			@PathVariable Long servicoId) throws NotFoundException {
 
-	public void delAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId) {
-		List<Servico> lista = servicoRepository.findAllServicosByIds(etapaId);
-		lista.forEach(servico -> servicoRepository.deleteById(servico.getId()));
-
-	}
-
-
-	public void putAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
-			@RequestBody List<Servico> servicos) {
-
-		Optional<Etapa> findEtapa = null;
-		findEtapa = etapaRepository.findById(etapaId);
-		Etapa etapa = new Etapa();
-
-		if (!findEtapa.isEmpty()) {
-			etapa.setId(findEtapa.get().getId());
-			etapa.setObra(findEtapa.get().getObra());
-			etapa.setNomeEtapa(findEtapa.get().getNomeEtapa());
-			etapa.setServicos(servicos);
-			servicos.forEach(a -> a.setEtapa(etapa));
+		if (!servicoRepository.findById(servicoId).isEmpty()) {
+			Servico servico = servicoRepository.findById(servicoId).get();
+			servicoRepository.deleteById(servico.getId());
+		} else {
+			throw new NotFoundException("Não foi possível deletar o serviço selecionado");
 		}
 
-		etapaRepository.save(etapa);
+	}
+
+	public void delAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId)
+			throws NotFoundException {
+		if (!servicoRepository.findAllServicosByIds(etapaId).isEmpty()) {
+			List<Servico> lista = servicoRepository.findAllServicosByIds(etapaId);
+			lista.forEach(servico -> servicoRepository.deleteById(servico.getId()));
+		} else {
+			throw new NotFoundException("Não foi possível deletar a lista de serviços");
+		}
+
+	}
+
+	public void putAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
+			@RequestBody List<Servico> servicos) throws NotFoundException {
+
+		if (etapaRepository.findById(etapaId).isPresent()) {
+			Optional<Etapa> findEtapa = null;
+			findEtapa = etapaRepository.findById(etapaId);
+			Etapa etapa = new Etapa();
+
+			if (!findEtapa.isEmpty()) {
+				etapa.setId(findEtapa.get().getId());
+				etapa.setObra(findEtapa.get().getObra());
+				etapa.setNomeEtapa(findEtapa.get().getNomeEtapa());
+				etapa.setServicos(servicos);
+				servicos.forEach(a -> a.setEtapa(etapa));
+			}
+
+			etapaRepository.save(etapa);
+		} else {
+			throw new NotFoundException("Não foi possível atualizar a lista de serviços");
+		}
 	}
 
 }
