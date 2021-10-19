@@ -12,9 +12,6 @@ import com.senai.contratech.model.usuario.entity.Usuario;
 
 public class DetalhesUsuario implements  UserDetails {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
 	
