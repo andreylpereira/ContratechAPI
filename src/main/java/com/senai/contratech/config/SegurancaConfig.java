@@ -1,57 +1,44 @@
 package com.senai.contratech.config;
 
-import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.context.annotation.Bean;
+
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.senai.contratech.model.usuario.service.AutenticacaoUsuarioService;
+
 //padrão
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity(jsr250Enabled = true)
-@Configuration
-@EnableAutoConfiguration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(jsr250Enabled = true, prePostEnabled = true, securedEnabled = true)
+//@Configuration
+@EnableAutoConfiguration
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private DataSource dataSource;
-
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/api/cadastro").permitAll()
-				.anyRequest()
-				.authenticated()
-				.and()
-				.httpBasic()
-				.and()
-				.formLogin();
-
+	@Bean
+	public AutenticacaoUsuarioService autenticacaoUsuarioService() {
+		return new AutenticacaoUsuarioService();
 	}
 
-	/*
-	 * Em memoria
-	 * 
-	 * @Override protected void configure(AuthenticationManagerBuilder auth) throws
-	 * Exception { auth.inMemoryAuthentication().passwordEncoder(new
-	 * BCryptPasswordEncoder()) .withUser("andrey")
-	 * .password("$2a$10$v1CxVZfDjoOCVYKDMzFm.e6/OSmaJJcdUiEw3BIAAr32HcWDPGpDu")
-	 * .roles("USUARIO"); }
-	 */
+	@Bean
+	public DaoAuthenticationProvider daoAutenticationProvider() {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		provider.setPasswordEncoder(new BCryptPasswordEncoder());
+		provider.setUserDetailsService(autenticacaoUsuarioService());
+
+		return provider;
+	}
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder()).dataSource(dataSource)
-				.usersByUsernameQuery("SELECT LOGIN, SENHA, ATIVO FROM USUARIO WHERE LOGIN = ?")
-				.authoritiesByUsernameQuery("SELECT LOGIN, ROLE FROM USUARIO WHERE LOGIN = ?").rolePrefix("ROLE_");
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(daoAutenticationProvider());
 	}
 }

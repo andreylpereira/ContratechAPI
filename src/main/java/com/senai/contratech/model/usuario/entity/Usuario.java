@@ -11,19 +11,20 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.senai.contratech.model.obra.entity.Obra;
 
 @Entity
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class Usuario{
+public class Usuario {
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank @Size(min = 6, max= 20, message = "O valor têm que estar entre 5 e 25 caracteres")
+
+	@NotBlank
+	@Size(min = 6, max = 20, message = "O valor têm que estar entre 5 e 25 caracteres")
 	private String login;
 	@NotBlank
 	private String nome;
@@ -32,9 +33,11 @@ public class Usuario{
 	@NotBlank
 	@Email(message = "Email tem que ser válido")
 	private String email;
-	//@NotBlank @Size(min = 6, max= 10, message = "O valor têm que estar entre 6 e 10 caracteres")
+	// @NotBlank @Size(min = 6, max= 10, message = "O valor têm que estar entre 6 e
+	// 10 caracteres")
 	private String senha;
 	private Boolean ativo;
+
 	private String role;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -43,14 +46,15 @@ public class Usuario{
 	public Usuario() {
 	}
 
-	public Usuario(String login, String nome, String sobrenome, String email, String senha, Boolean ativo, String role) {
+	public Usuario(String login, String nome, String sobrenome, String email, String senha, Boolean ativo,
+			String role) {
 		this.login = login;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.email = email;
 		this.senha = senha;
 		this.ativo = true;
-		this.role = "USUARIO";
+		this.role = "ROLE_USUARIO";
 	}
 
 	public Long getId() {
@@ -125,5 +129,4 @@ public class Usuario{
 		this.role = role;
 	}
 
-	
 }
