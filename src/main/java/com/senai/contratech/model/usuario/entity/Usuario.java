@@ -32,8 +32,10 @@ public class Usuario{
 	@NotBlank
 	@Email(message = "Email tem que ser válido")
 	private String email;
-	@NotBlank @Size(min = 6, max= 10, message = "O valor têm que estar entre 6 e 10 caracteres")
+	//@NotBlank @Size(min = 6, max= 10, message = "O valor têm que estar entre 6 e 10 caracteres")
 	private String senha;
+	private Boolean ativo;
+	private String role;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Obra> obras;
@@ -41,12 +43,14 @@ public class Usuario{
 	public Usuario() {
 	}
 
-	public Usuario(String login, String nome, String sobrenome, String email, String senha) {
+	public Usuario(String login, String nome, String sobrenome, String email, String senha, Boolean ativo, String role) {
 		this.login = login;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.email = email;
 		this.senha = senha;
+		this.ativo = true;
+		this.role = "USUARIO";
 	}
 
 	public Long getId() {
@@ -105,4 +109,21 @@ public class Usuario{
 		return this.obras;
 	}
 
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	
 }

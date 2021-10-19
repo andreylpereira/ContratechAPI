@@ -1,6 +1,9 @@
 package com.senai.contratech.controllers;
 
 import java.util.List;
+
+import javax.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +19,7 @@ import javassist.NotFoundException;
 
 @RestController
 @RequestMapping(value = "/api")
+@RolesAllowed(value = "ROLE_USUARIO")
 public class UsuarioController {
 
 	@Autowired
@@ -31,7 +35,7 @@ public class UsuarioController {
 		return usuarioService.findByUsuarioId(id);
 	}
 
-	@PostMapping("/usuarios")
+	@PostMapping("/cadastro")
 	public List<Usuario> AdicionarUsuario(@RequestBody Usuario usuario) {
 		return usuarioService.addUsuario(usuario);
 	}

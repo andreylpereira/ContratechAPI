@@ -84,5 +84,4 @@ public class Obra {
 		this.etapas = etapas;
 	}
 
-
 }
