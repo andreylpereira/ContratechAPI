@@ -23,15 +23,12 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-			http
+			http.csrf().disable()
 			.authorizeRequests()
-			.antMatchers("/api/cadastro/**")
-			.permitAll()
+			.antMatchers("/api/cadastro").permitAll()
+			.antMatchers("/seguranca/login").permitAll()
 			.anyRequest()
-			.authenticated()
-			.and().httpBasic()
-			.and().formLogin()
-			;
+			.authenticated();
 	}
 	
 	
