@@ -33,7 +33,7 @@ public class SegurancaController {
 			if(!new BCryptPasswordEncoder().matches(usuario.getSenha(), detalhesUsuario.getPassword())) {
 				return new ResponseEntity<>(jwtHelper.gerarToken(detalhesUsuario), HttpStatus.UNAUTHORIZED);
 			}
-			return new ResponseEntity<String>(jwtHelper.gerarToken(detalhesUsuario), HttpStatus.OK);
+			return new ResponseEntity<>(jwtHelper.gerarToken(detalhesUsuario), HttpStatus.OK);
 		} catch (UsernameNotFoundException e) {
 			return new ResponseEntity<>("Usuário Inválido", HttpStatus.UNAUTHORIZED);
 		}
