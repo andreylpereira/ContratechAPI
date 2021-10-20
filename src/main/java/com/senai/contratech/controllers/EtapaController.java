@@ -19,19 +19,21 @@ import javassist.NotFoundException;
 
 @RestController
 @RequestMapping(value = "/api/usuarios")
-@Secured(value = "ROLE_USUARIO")
+
 public class EtapaController {
 
 	@Autowired
 	private EtapaService etapaService;
 
 	@GetMapping("/{usuarioId}/obras/{obraId}/etapas")
+	@Secured(value = "ROLE_USUARIO")
 	public List<Etapa> puxarObrasDoUsuario(@PathVariable Long usuarioId, @PathVariable Long obraId)
 			throws NotFoundException {
 		return etapaService.findByObraId(usuarioId, obraId);
 	}
 
 	@GetMapping("/{usuarioId}/obras/{obraId}/etapas/{etapaId}")
+	@Secured(value = "ROLE_USUARIO")
 	public Etapa puxarEtapaDaObra(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId)
 			throws NotFoundException {
 		etapaService.findByIdsEtapa(usuarioId, obraId, etapaId);
@@ -39,11 +41,13 @@ public class EtapaController {
 	}
 
 	@PostMapping("/{usuarioId}/obras/{obraId}/etapas")
+	@Secured(value = "ROLE_USUARIO")
 	public void adicionarEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Etapa etapa) throws NotFoundException  {
 		etapaService.addEtapa(usuarioId, obraId, etapa);
 	}
 
 	@PutMapping("/{usuarioId}/obras/{obraId}/etapas/{etapaId}")
+	@Secured(value = "ROLE_USUARIO")
 	public Etapa editarEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
 			@RequestBody Etapa etapa) throws NotFoundException {
 		return etapaService.updateEtapa(usuarioId, obraId, etapaId, etapa);
@@ -51,6 +55,7 @@ public class EtapaController {
 	}
 	
 	@DeleteMapping("/{usuarioId}/obras/{obraId}/etapas/{etapaId}")
+	@Secured(value = "ROLE_USUARIO")
 	public void deleteEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId) throws NotFoundException {		
 		etapaService.delEtapa(usuarioId, obraId, etapaId);
 	}

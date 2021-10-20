@@ -16,7 +16,7 @@ public class CadastroController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@PostMapping("/cadastro")
+	@PostMapping("/cadastro/usuario")
 	public void AdicionarUsuario(@RequestBody Usuario usuario) {
 		usuarioService.addUsuario(usuario);
 	}

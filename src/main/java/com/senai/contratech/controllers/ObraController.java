@@ -21,33 +21,38 @@ import javassist.NotFoundException;
 
 @RestController
 @RequestMapping(value = "/api")
-@Secured(value = "ROLE_USUARIO")
+
 public class ObraController {
 
 	@Autowired
 	private ObraService obraService;
 
 	@GetMapping("/usuarios/{usuarioId}/obras")
+	@Secured(value = "ROLE_USUARIO")
 	public List<Obra> PuxarTodasObrasDoUsuario(@PathVariable Long usuarioId) throws NotFoundException {
 		return obraService.findAllByObraId(usuarioId);
 	}
 
 	@GetMapping("/usuarios/{usuarioId}/obras/{obraId}")
+	@Secured(value = "ROLE_USUARIO")
 	public Obra puxarObraPelasIds(@PathVariable Long usuarioId, @PathVariable Long obraId) throws NotFoundException {
 		return obraService.findByObraId(usuarioId, obraId);
 	}
 
 	@PostMapping("/usuarios/{usuarioId}/obras")
+	@Secured(value = "ROLE_USUARIO")
 	public Obra adicionarObra(@PathVariable Long usuarioId, @Valid @RequestBody Obra obra) throws NotFoundException {
 		return obraService.addObra(usuarioId, obra);
 	}
 
 	@DeleteMapping("/usuarios/{usuarioId}/obras/{obraId}")
+	@Secured(value = "ROLE_USUARIO")
 	public void deleteObra(@PathVariable Long usuarioId, @PathVariable Long obraId) throws NotFoundException {
 		obraService.delObra(usuarioId, obraId);
 	}
 
 	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}")
+	@Secured(value = "ROLE_USUARIO")
 	public Obra editarObra(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Obra obra)
 			throws NotFoundException {
 		return obraService.updateObra(usuarioId, obraId, obra);
@@ -56,6 +61,7 @@ public class ObraController {
 
 	// relatório
 	@GetMapping("/usuarios/{usuarioId}/obras/{obraId}/relatorio")
+	@Secured(value = "ROLE_USUARIO")
 	public Relatorio puxarRelatorioPelasIds(@PathVariable Long usuarioId, @PathVariable Long obraId)
 			throws NotFoundException {
 		return obraService.relatorioObra(usuarioId, obraId);
