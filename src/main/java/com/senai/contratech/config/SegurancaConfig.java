@@ -15,7 +15,8 @@ import com.senai.contratech.model.usuario.service.AutenticacaoUsuarioService;
 
 //padrão
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(jsr250Enabled = true, prePostEnabled = true, securedEnabled = true)
+@EnableGlobalMethodSecurity(jsr250Enabled = true, securedEnabled = true)
+//, prePostEnabled = true) retirado
 //@Configuration
 @EnableAutoConfiguration
 
@@ -39,10 +40,13 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 		auth.authenticationProvider(daoAutenticationProvider());
 	}
 
-	@Override
-	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/cadastro").permitAll()
-				// .antMatchers("/").permitAll()
-				.and().csrf().disable().headers().frameOptions().disable();
-	}
+	//reconfigure
+//	@Override
+//	public void configure(HttpSecurity http) throws Exception {
+//		
+//		http.antMatcher("/api/cadastro")
+//		.authorizeRequests().antMatchers("/api/usuarios").permitAll()
+//				// .antMatchers("/").permitAll()
+//				.and().csrf().disable().headers().frameOptions().disable();
+//	}
 }
