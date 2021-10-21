@@ -3,6 +3,7 @@ package com.senai.contratech.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import javassist.NotFoundException;
 
 @RestController
 @RequestMapping(value = "/api")
+@Secured(value = "ROLE_USUARIO")
 public class ServicoController {
 
 	@Autowired
@@ -46,7 +48,7 @@ public class ServicoController {
 	public void deletarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId) throws NotFoundException {
 		servicoService.delAllServicos(usuarioId, obraId, etapaId);
 	}
-
+	
 	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/atualizar")
 	public void atualizarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
 			@RequestBody List<Servico> servicos) throws NotFoundException {

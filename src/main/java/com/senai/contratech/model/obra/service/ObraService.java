@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import com.senai.contratech.model.etapa.repository.EtapaRepository;
 import com.senai.contratech.model.obra.entity.Obra;
+import com.senai.contratech.model.obra.entity.Relatorio;
 import com.senai.contratech.model.obra.repository.ObraRepository;
 import com.senai.contratech.model.usuario.entity.Usuario;
 import com.senai.contratech.model.usuario.repository.UsuarioRepository;
@@ -78,6 +80,16 @@ public class ObraService {
 		} catch (Exception e) {
 			throw new NotFoundException("Não foi possível atualizar o nome da obra");
 		}
+	}
+	
+	public Relatorio relatorioObra(@PathVariable Long usuarioId, @PathVariable Long obraId) {
+		Obra recuperarObra = obraRepository.findById(obraId).get();
+		Relatorio relatorio = new Relatorio();
+		relatorio.setIdObra(recuperarObra.getId());
+		relatorio.setNomeObra(recuperarObra.getNomeObra());
+		relatorio.setEtapas(recuperarObra.getEtapas());
+
+		return relatorio;
 
 	}
 }
