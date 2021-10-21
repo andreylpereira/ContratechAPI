@@ -20,40 +20,36 @@ import javassist.NotFoundException;
 
 @RestController
 @RequestMapping(value = "/api")
+@Secured(value = "ROLE_USUARIO")
 public class ServicoController {
 
 	@Autowired
 	private ServicoService servicoService;
 
 	@GetMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos")
-	@Secured(value = "ROLE_USUARIO")
 	public List<Servico> puxarListaServicosPelasIds(@PathVariable Long usuarioId, @PathVariable Long obraId,
 			@PathVariable Long etapaId) throws NotFoundException {
 		return servicoService.findByIds(usuarioId, obraId, etapaId);
 	}
 
 	@PostMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos")
-	@Secured(value = "ROLE_USUARIO")
 	public void adicionarServico(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
 			Servico servico) throws NotFoundException {
 		servicoService.addServico(usuarioId, obraId, etapaId, servico);
 	}
 
 	@DeleteMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/{servicoId}")
-	@Secured(value = "ROLE_USUARIO")
 	public void deletarServico(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
 			@PathVariable Long servicoId) throws NotFoundException {
 		servicoService.delServico(usuarioId, obraId, etapaId, servicoId);
 	}
 
 	@DeleteMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/")
-	@Secured(value = "ROLE_USUARIO")
 	public void deletarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId) throws NotFoundException {
 		servicoService.delAllServicos(usuarioId, obraId, etapaId);
 	}
-
+	
 	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/atualizar")
-	@Secured(value = "ROLE_USUARIO")
 	public void atualizarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
 			@RequestBody List<Servico> servicos) throws NotFoundException {
 		servicoService.putAllServicos(usuarioId, obraId, etapaId, servicos);

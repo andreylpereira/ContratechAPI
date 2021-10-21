@@ -24,11 +24,11 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		http //cors().and()
-//			.csrf().disable().authorizeRequests()
-//			.antMatchers("/api/cadastro").permitAll()
-//			.antMatchers("/seguranca/login").permitAll()
-//			.anyRequest().authenticated();
+		http //cors().and()
+			.csrf().disable().authorizeRequests()
+			.antMatchers("/api/cadastro").permitAll()
+			.antMatchers("/seguranca/login").permitAll()
+			.anyRequest().authenticated();
 		
 		
 		http.addFilterBefore(autenticacaoFilter, UsernamePasswordAuthenticationFilter.class);

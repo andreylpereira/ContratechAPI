@@ -16,19 +16,18 @@ import javassist.NotFoundException;
 
 @RestController
 @RequestMapping(value = "/api")
+@Secured(value = "ROLE_USUARIO")
 public class UsuarioController {
 
 	@Autowired
 	private UsuarioService usuarioService;
 
 	@GetMapping("/usuarios")
-	@Secured(value = "ROLE_USUARIO")
 	public List<Usuario> puxarTodosUsuarios() {
 		return usuarioService.findAllUsuarios();
 	}
 
 	@GetMapping("/usuarios/{id}")
-	@Secured(value = "ROLE_USUARIO")
 	public Usuario puxarUsuarioPelaId(@PathVariable Long id) throws NotFoundException {
 		return usuarioService.findByUsuarioId(id);
 	}
