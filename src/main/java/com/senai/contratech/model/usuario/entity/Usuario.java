@@ -36,9 +36,9 @@ public class Usuario {
 	// @NotBlank @Size(min = 6, max= 10, message = "O valor têm que estar entre 6 e
 	// 10 caracteres")
 	private String senha;
-	private Boolean ativo;
+	private Boolean ativo = true;
 
-	private String role;
+	private String role = "ROLE_USUARIO";
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Obra> obras;
