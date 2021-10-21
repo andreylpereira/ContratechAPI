@@ -24,7 +24,7 @@ public class SegurancaController {
 	
 	@Autowired
 	private JWTHelper jwtHelper;
-	
+
 	
 	@PostMapping("/login")
 	public ResponseEntity<String> buscarToken(@RequestBody Usuario usuario) {

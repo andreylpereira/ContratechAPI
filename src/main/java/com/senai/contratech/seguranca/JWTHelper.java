@@ -44,6 +44,7 @@ public class JWTHelper {
 		return (Collection<E>) buscarPayloadDoToken(token).get("permissoes");
 	}
 
+	
 	public String gerarToken(UserDetails usuario) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("usuario", usuario.getUsername());

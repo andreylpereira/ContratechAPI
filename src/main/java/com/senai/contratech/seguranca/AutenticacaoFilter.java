@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -41,14 +39,15 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
 			throw new ServletException("O token é inválido");
 		}
 
-		autenticarUsuario(token);
+		//autenticarUsuario(token);
 		filterChain.doFilter(request, response);
 	}
 
+	/*
 	private void autenticarUsuario(String token) {
 		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
 				jwtHelper.getUsuarioDoToken(token), null, jwtHelper.getPermissoes(token));
 		SecurityContextHolder.getContext().setAuthentication(auth);
 	}
-
+*/
 }
