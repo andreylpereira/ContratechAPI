@@ -16,8 +16,6 @@ import com.senai.contratech.seguranca.AutenticacaoFilter;
 //@EnableGlobalMethodSecurity(jsr250Enabled = true, securedEnabled = true)
 public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 	
-	//datasource retirado
-	
 	@Autowired
 	private AutenticacaoUsuarioService autenticacaoUsuarioService;
 	
