@@ -40,6 +40,7 @@ public class JWTHelper {
 	}
 
 	//ERROR
+	@SuppressWarnings("unchecked")
 	public <E extends GrantedAuthority> Collection<E> getPermissoes(String token) {
 		return (Collection<E>) buscarPayloadDoToken(token).get("permissoes");
 	}

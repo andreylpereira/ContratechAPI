@@ -29,6 +29,11 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
 			return; 
 		}
 		
+		if (request.getRequestURI().contains("/api/cadastro")) {
+			filterChain.doFilter(request, response);
+			return; 
+		}
+		
 		if (token == null || !token.startsWith("Bearer")) {
 			throw new ServletException("O token não foi informado");
 		}

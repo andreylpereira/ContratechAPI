@@ -64,5 +64,10 @@ public class DetalhesUsuario implements  UserDetails {
 		return authorities;
 		
 	}
+	
+	//tentativa
+	public Long getUsuarioId() {
+		return usuario.getId();
+	}
  
 }
