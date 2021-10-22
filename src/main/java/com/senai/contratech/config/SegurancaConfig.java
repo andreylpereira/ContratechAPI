@@ -22,8 +22,11 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private AutenticacaoFilter autenticacaoFilter;
 
+	
+	//verificar
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
 		http //cors().and()
 			.csrf().disable().authorizeRequests()
 			.antMatchers("/api/cadastro").permitAll()

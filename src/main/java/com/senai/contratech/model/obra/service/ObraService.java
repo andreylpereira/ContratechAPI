@@ -1,8 +1,10 @@
 package com.senai.contratech.model.obra.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,11 +51,16 @@ public class ObraService {
 		return obraRepository.findByUsuarioObraId(usuarioId, obraId);
 	}
 
-	public Obra addObra(@PathVariable Long usuarioId, @Valid @RequestBody Obra obra) throws NotFoundException {
-		return usuarioRepository.findById(usuarioId).map(usuario -> {
-			obra.setUsuario(usuario);
-			return obraRepository.save(obra);
-		}).orElseThrow(() -> new NotFoundException("Não é possível adicionar esta obra"));
+	public Optional<Object> addObra(@PathVariable Long usuarioId, @Valid @RequestBody Obra obra)
+			throws ValidationException {
+		try {
+			return usuarioRepository.findById(usuarioId).map(usuario -> {
+				obra.setUsuario(usuario);
+				return obraRepository.save(obra);
+			});
+		} catch (Exception e) {
+			throw new ValidationException("Não foi possível adicionar a obra");
+		}
 	}
 
 	public void delObra(@PathVariable Long usuarioId, @PathVariable Long obraId) throws NotFoundException {
@@ -81,7 +88,7 @@ public class ObraService {
 			throw new NotFoundException("Não foi possível atualizar o nome da obra");
 		}
 	}
-	
+
 	public Relatorio relatorioObra(@PathVariable Long usuarioId, @PathVariable Long obraId) {
 		Obra recuperarObra = obraRepository.findById(obraId).get();
 		Relatorio relatorio = new Relatorio();

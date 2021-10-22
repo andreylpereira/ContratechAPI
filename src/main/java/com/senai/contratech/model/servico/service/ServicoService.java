@@ -39,12 +39,12 @@ public class ServicoService {
 		} else {
 			throw new NotFoundException("Não foi possível recuperar a lista de serviços dessa etapa.");
 		}
-		
+
 	}
 
 	public void addServico(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
 			@RequestBody Servico servico) throws NotFoundException {
-	
+
 		try {
 			Etapa etapa = etapaRepository.findEtapa(usuarioId, obraId, etapaId);
 			servico.setEtapa(etapa);
@@ -56,7 +56,7 @@ public class ServicoService {
 			etapaRepository.save(etapa);
 		} catch (Exception e) {
 			throw new NotFoundException("Não foi possível adicionar um serviço a lista");
-		
+
 		}
 
 	}
@@ -84,7 +84,7 @@ public class ServicoService {
 
 	}
 
-	public void putAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
+	public void updateAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
 			@RequestBody List<Servico> servicos) throws NotFoundException {
 
 		if (etapaRepository.findById(etapaId).isPresent()) {

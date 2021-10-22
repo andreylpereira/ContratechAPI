@@ -39,7 +39,8 @@ public class EtapaController {
 	}
 
 	@PostMapping("/{usuarioId}/obras/{obraId}/etapas")
-	public void adicionarEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Etapa etapa) throws NotFoundException  {
+	public void adicionarEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Etapa etapa)
+			throws NotFoundException {
 		etapaService.addEtapa(usuarioId, obraId, etapa);
 	}
 
@@ -49,9 +50,10 @@ public class EtapaController {
 		return etapaService.updateEtapa(usuarioId, obraId, etapaId, etapa);
 
 	}
-	
+
 	@DeleteMapping("/{usuarioId}/obras/{obraId}/etapas/{etapaId}")
-	public void deleteEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId) throws NotFoundException {		
+	public void deleteEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId)
+			throws NotFoundException {
 		etapaService.delEtapa(usuarioId, obraId, etapaId);
 	}
 

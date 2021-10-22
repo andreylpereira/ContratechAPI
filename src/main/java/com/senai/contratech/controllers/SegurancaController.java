@@ -21,16 +21,15 @@ public class SegurancaController {
 
 	@Autowired
 	private AutenticacaoUsuarioService autenticacaoUsuarioService;
-	
+
 	@Autowired
 	private JWTHelper jwtHelper;
 
-	
 	@PostMapping("/login")
 	public ResponseEntity<String> buscarToken(@RequestBody Usuario usuario) {
 		try {
 			UserDetails detalhesUsuario = autenticacaoUsuarioService.loadUserByUsername(usuario.getLogin());
-			if(!new BCryptPasswordEncoder().matches(usuario.getSenha(), detalhesUsuario.getPassword())) {
+			if (!new BCryptPasswordEncoder().matches(usuario.getSenha(), detalhesUsuario.getPassword())) {
 				return new ResponseEntity<>(jwtHelper.gerarToken(detalhesUsuario), HttpStatus.UNAUTHORIZED);
 			}
 			return new ResponseEntity<>(jwtHelper.gerarToken(detalhesUsuario), HttpStatus.OK);

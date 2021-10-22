@@ -11,6 +11,7 @@ import com.senai.contratech.model.usuario.entity.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	Optional<Usuario> findByLogin(String login);
-	
-	
+
+	Optional<Usuario> findByEmail(String email);
+
 }

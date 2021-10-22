@@ -18,27 +18,28 @@ import com.senai.contratech.model.obra.entity.Obra;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Usuario {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank
-	@Size(min = 6, max = 20, message = "O valor têm que estar entre 5 e 25 caracteres")
+	@Size(min = 6, max = 20, message = "O login deve estar entre 5 e 25 caracteres")
 	private String login;
 	@NotBlank
+	@Size(max = 30, message = "O nome deve ter no maximo 25 caracteres")
 	private String nome;
 	@NotBlank
+	@Size(max = 30, message = "O nome deve ter no maximo 25 caracteres")
 	private String sobrenome;
 	@NotBlank
 	@Email(message = "Email tem que ser válido")
 	private String email;
-	// @NotBlank @Size(min = 6, max= 10, message = "O valor têm que estar entre 6 e
-	// 10 caracteres")
+	 
+	//@NotBlank
+	//@Size(min = 6, max= 10, message = "O valor têm que estar entre 6 e 10 caracteres")
 	private String senha;
-	private Boolean ativo;
+	private Boolean ativo = true;
 
-	private String role;
+	private String role = "ROLE_USUARIO";
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Obra> obras;

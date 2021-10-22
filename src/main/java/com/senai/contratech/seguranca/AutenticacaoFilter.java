@@ -20,15 +20,19 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		
+
 		String token = request.getHeader("Authorization");
-		
-		
+
 		if (request.getRequestURI().contains("/seguranca/login")) {
 			filterChain.doFilter(request, response);
-			return; 
+			return;
 		}
-		
+
+		if (request.getRequestURI().contains("/api/cadastro")) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+
 		if (token == null || !token.startsWith("Bearer")) {
 			throw new ServletException("O token não foi informado");
 		}
@@ -39,15 +43,7 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
 			throw new ServletException("O token é inválido");
 		}
 
-		//autenticarUsuario(token);
 		filterChain.doFilter(request, response);
 	}
 
-	/*
-	private void autenticarUsuario(String token) {
-		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-				jwtHelper.getUsuarioDoToken(token), null, jwtHelper.getPermissoes(token));
-		SecurityContextHolder.getContext().setAuthentication(auth);
-	}
-*/
 }

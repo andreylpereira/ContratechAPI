@@ -1,6 +1,8 @@
 package com.senai.contratech.controllers;
 
 import java.util.List;
+import java.util.Optional;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -41,7 +43,7 @@ public class ObraController {
 
 	@PostMapping("/usuarios/{usuarioId}/obras")
 	@Secured(value = "ROLE_USUARIO")
-	public Obra adicionarObra(@PathVariable Long usuarioId, @Valid @RequestBody Obra obra) throws NotFoundException {
+	public Optional<Object> adicionarObra(@PathVariable Long usuarioId, @Valid @RequestBody Obra obra) throws NotFoundException {
 		return obraService.addObra(usuarioId, obra);
 	}
 
