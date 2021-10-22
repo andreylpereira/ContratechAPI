@@ -36,14 +36,14 @@ public class EtapaService {
 			obra.getEtapas().add(etapa);
 			obraRepository.save(obra);
 		} catch (Exception e) {
-			throw new NotFoundException("Não foi possível adicionar um etapa nesta obra");
+			throw new NotFoundException("Não foi possível adicionar está etapa");
 		}
 	}
 
 	public List<Etapa> findByObraId(@PathVariable Long usuarioId, @PathVariable Long obraId) throws NotFoundException {
 
 		if (!usuarioRepository.existsById(usuarioId) || !obraRepository.existsById(obraId)) {
-			throw new NotFoundException("Não foi possível recuperar a lista de etapas da obra");
+			throw new NotFoundException("Não foi possível recuperar a lista de etapas");
 		}
 		return etapaRepository.findAllEtapasByObraId(obraId);
 	}

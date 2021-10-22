@@ -29,7 +29,7 @@ public class Servico {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Size(min = 5, max = 35, message = "O valor têm que estar entre 5 e 35 caracteres")
+	@Size(min = 5, max = 35, message = "O nome do serviço deve estar entre 5 e 35 caracteres")
 	@Column(name = "nome_servico")
 	private String nomeServico;
 

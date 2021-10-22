@@ -46,7 +46,11 @@ public class UsuarioService {
 	}
 
 	public List<Usuario> addUsuario(@RequestBody Usuario usuario) {
-
+		String pw = usuario.getSenha();
+		
+		if(pw.length() > 10 || pw.length() < 6) {
+			throw new NonUniqueResultException("A senha têm que ter entre 6 e 10 caracteres");
+		}
 		if (usuarioRepository.findByLogin(usuario.getLogin()).isPresent()) {
 			throw new NonUniqueResultException("Usuario cadastrado");
 		}

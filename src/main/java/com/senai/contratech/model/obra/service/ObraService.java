@@ -1,6 +1,7 @@
 package com.senai.contratech.model.obra.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -49,11 +50,16 @@ public class ObraService {
 		return obraRepository.findByUsuarioObraId(usuarioId, obraId);
 	}
 
-	public Obra addObra(@PathVariable Long usuarioId, @Valid @RequestBody Obra obra) throws NotFoundException {
-		return usuarioRepository.findById(usuarioId).map(usuario -> {
-			obra.setUsuario(usuario);
-			return obraRepository.save(obra);
-		}).orElseThrow(() -> new NotFoundException("Não é possível adicionar esta obra"));
+	public Optional<Object> addObra(@PathVariable Long usuarioId, @Valid @RequestBody Obra obra)
+			throws NotFoundException {
+		try {
+			return usuarioRepository.findById(usuarioId).map(usuario -> {
+				obra.setUsuario(usuario);
+				return obraRepository.save(obra);
+			});
+		} catch (Exception e) {
+			throw new NotFoundException("Não foi possível adicionar a obra");
+		}
 	}
 
 	public void delObra(@PathVariable Long usuarioId, @PathVariable Long obraId) throws NotFoundException {
