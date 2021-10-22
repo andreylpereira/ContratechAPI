@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,14 +52,14 @@ public class ObraService {
 	}
 
 	public Optional<Object> addObra(@PathVariable Long usuarioId, @Valid @RequestBody Obra obra)
-			throws NotFoundException {
+			throws ValidationException {
 		try {
 			return usuarioRepository.findById(usuarioId).map(usuario -> {
 				obra.setUsuario(usuario);
 				return obraRepository.save(obra);
 			});
 		} catch (Exception e) {
-			throw new NotFoundException("Não foi possível adicionar a obra");
+			throw new ValidationException("Não foi possível adicionar a obra");
 		}
 	}
 

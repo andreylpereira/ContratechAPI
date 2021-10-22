@@ -2,6 +2,8 @@ package com.senai.contratech.model.etapa.service;
 
 import java.util.List;
 
+import javax.validation.ValidationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +30,7 @@ public class EtapaService {
 	private EtapaRepository etapaRepository;
 
 	public void addEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @RequestBody Etapa etapa)
-			throws NotFoundException {
+			throws ValidationException {
 
 		try {
 			Obra obra = obraRepository.findById(obraId).get();
@@ -36,7 +38,7 @@ public class EtapaService {
 			obra.getEtapas().add(etapa);
 			obraRepository.save(obra);
 		} catch (Exception e) {
-			throw new NotFoundException("Não foi possível adicionar está etapa");
+			throw new ValidationException("Não foi possível adicionar está etapa");
 		}
 	}
 

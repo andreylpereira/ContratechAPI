@@ -84,7 +84,7 @@ public class ServicoService {
 
 	}
 
-	public void putAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
+	public void updateAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
 			@RequestBody List<Servico> servicos) throws NotFoundException {
 
 		if (etapaRepository.findById(etapaId).isPresent()) {

@@ -53,7 +53,7 @@ public class ServicoController {
 	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/atualizar")
 	public void atualizarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
 			@RequestBody List<Servico> servicos) throws NotFoundException {
-		servicoService.putAllServicos(usuarioId, obraId, etapaId, servicos);
+		servicoService.updateAllServicos(usuarioId, obraId, etapaId, servicos);
 	}
 
 }

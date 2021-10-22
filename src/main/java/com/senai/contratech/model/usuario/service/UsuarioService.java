@@ -3,7 +3,7 @@ package com.senai.contratech.model.usuario.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.NonUniqueResultException;
+import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -49,13 +49,13 @@ public class UsuarioService {
 		String pw = usuario.getSenha();
 		
 		if(pw.length() > 10 || pw.length() < 6) {
-			throw new NonUniqueResultException("A senha têm que ter entre 6 e 10 caracteres");
+			throw new ValidationException("A senha têm que ter entre 6 e 10 caracteres");
 		}
 		if (usuarioRepository.findByLogin(usuario.getLogin()).isPresent()) {
-			throw new NonUniqueResultException("Usuario cadastrado");
+			throw new ValidationException("Usuario cadastrado");
 		}
 		if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
-			throw new NonUniqueResultException("E-mail cadastrado");
+			throw new ValidationException("E-mail cadastrado");
 		} else {
 			String senha = new BCryptPasswordEncoder().encode(usuario.getSenha());
 			usuario.setSenha(senha);
