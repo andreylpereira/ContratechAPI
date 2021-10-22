@@ -10,16 +10,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.senai.contratech.model.usuario.entity.Usuario;
 
-public class DetalhesUsuario implements  UserDetails {
+public class DetalhesUsuario implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
-	
+
 	public DetalhesUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-
 
 	@Override
 	public String getPassword() {
@@ -62,12 +60,12 @@ public class DetalhesUsuario implements  UserDetails {
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority(usuario.getRole()));
 		return authorities;
-		
+
 	}
-	
-	//tentativa
+
+	// tentativa
 	public Long getUsuarioId() {
 		return usuario.getId();
 	}
- 
+
 }

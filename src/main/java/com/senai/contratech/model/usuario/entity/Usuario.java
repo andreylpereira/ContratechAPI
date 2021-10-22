@@ -18,7 +18,6 @@ import com.senai.contratech.model.obra.entity.Obra;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Usuario {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

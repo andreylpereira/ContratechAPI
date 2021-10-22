@@ -81,7 +81,7 @@ public class ObraService {
 			throw new NotFoundException("Não foi possível atualizar o nome da obra");
 		}
 	}
-	
+
 	public Relatorio relatorioObra(@PathVariable Long usuarioId, @PathVariable Long obraId) {
 		Obra recuperarObra = obraRepository.findById(obraId).get();
 		Relatorio relatorio = new Relatorio();

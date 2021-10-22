@@ -45,10 +45,11 @@ public class ServicoController {
 	}
 
 	@DeleteMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/")
-	public void deletarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId) throws NotFoundException {
+	public void deletarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId)
+			throws NotFoundException {
 		servicoService.delAllServicos(usuarioId, obraId, etapaId);
 	}
-	
+
 	@PutMapping("/usuarios/{usuarioId}/obras/{obraId}/etapas/{etapaId}/servicos/atualizar")
 	public void atualizarTodosServicos(Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
 			@RequestBody List<Servico> servicos) throws NotFoundException {

@@ -10,5 +10,4 @@ public class ContratechApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ContratechApplication.class, args);
 	}
-
 }

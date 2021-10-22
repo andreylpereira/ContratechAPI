@@ -72,7 +72,7 @@ public class EtapaService {
 		} catch (Exception e) {
 			throw new NotFoundException("Não foi possível atualizar o nome da etapa");
 		}
-		
+
 	}
 
 	public void delEtapa(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId)

@@ -1,6 +1,5 @@
 package com.senai.contratech.model.servico.entity;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,24 +23,24 @@ import com.senai.contratech.model.etapa.entity.Etapa;
 @Entity
 @Table(name = "Servicos")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class Servico{
+public class Servico {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Size(min = 5, max= 35, message = "O valor têm que estar entre 5 e 35 caracteres")
+	@Size(min = 5, max = 35, message = "O valor têm que estar entre 5 e 35 caracteres")
 	@Column(name = "nome_servico")
 	private String nomeServico;
-	
+
 	@Min(value = 0, message = "O preço não pode ser menor que zero")
 	private double preco;
-	
-	@Min(value = 0, message = "A quantidade têm que ser entre 0 e 00") 
+
+	@Min(value = 0, message = "A quantidade têm que ser entre 0 e 00")
 	@Max(value = 99, message = "A quantidade têm que ser entre 0 e 00")
 	private int quantidade;
-	 
-	@Min(value = 0, message = "A porcentagem têm que ser entre 0 e 100") 
+
+	@Min(value = 0, message = "A porcentagem têm que ser entre 0 e 100")
 	@Max(value = 100, message = "A porcentagem têm que ser entre 0 e 100")
 	private int porcentagem;
 
@@ -102,6 +101,5 @@ public class Servico{
 	public void setPorcentagem(int porcentagem) {
 		this.porcentagem = porcentagem;
 	}
-
 
 }

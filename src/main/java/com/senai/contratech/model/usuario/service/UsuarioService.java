@@ -3,6 +3,8 @@ package com.senai.contratech.model.usuario.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.NonUniqueResultException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,16 @@ public class UsuarioService {
 		return usuarioRepository.findAll();
 	}
 
+	public Usuario findbyUsuarioName(Usuario usuario) {
+		Optional<Usuario> optUsuario = usuarioRepository.findByLogin(usuario.getLogin());
+		return optUsuario.get();
+	}
+
+	public Usuario findbyUsuarioEmail(Usuario usuario) {
+		Optional<Usuario> optUsuario = usuarioRepository.findByEmail(usuario.getEmail());
+		return optUsuario.get();
+	}
+
 	public Usuario findByUsuarioId(@PathVariable Long id) throws NotFoundException {
 		Optional<Usuario> optUsuario = usuarioRepository.findById(id);
 		if (optUsuario.isPresent()) {
@@ -34,11 +46,18 @@ public class UsuarioService {
 	}
 
 	public List<Usuario> addUsuario(@RequestBody Usuario usuario) {
-		
-		String senha = new BCryptPasswordEncoder().encode(usuario.getSenha());
-		usuario.setSenha(senha);
-		
-		usuarioRepository.save(usuario);
-		return usuarioRepository.findAll();
+
+		if (usuarioRepository.findByLogin(usuario.getLogin()).isPresent()) {
+			throw new NonUniqueResultException("Usuario cadastrado");
+		}
+		if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
+			throw new NonUniqueResultException("E-mail cadastrado");
+		} else {
+			String senha = new BCryptPasswordEncoder().encode(usuario.getSenha());
+			usuario.setSenha(senha);
+
+			usuarioRepository.save(usuario);
+			return usuarioRepository.findAll();
+		}
 	}
 }

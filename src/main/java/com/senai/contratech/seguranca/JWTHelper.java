@@ -39,7 +39,6 @@ public class JWTHelper {
 		return (String) buscarPayloadDoToken(token).get("usuario");
 	}
 
-	//ERROR
 	@SuppressWarnings("unchecked")
 	public <E extends GrantedAuthority> Collection<E> getPermissoes(String token) {
 		return (Collection<E>) buscarPayloadDoToken(token).get("permissoes");
