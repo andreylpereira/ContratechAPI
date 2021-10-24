@@ -21,6 +21,7 @@ public class JWTHelper {
 	private Long lifeTimeToken;
 	@Value("${jwt.secret}")
 	private String tokenSecret;
+	
 
 	public Boolean validarToken(String token) {
 		return !isTokenExpired(token) && !getUsuarioDoToken(token).isEmpty();
@@ -29,6 +30,7 @@ public class JWTHelper {
 	private Claims buscarPayloadDoToken(String token) {
 		return Jwts.parser().setSigningKey(tokenSecret).parseClaimsJws(token).getBody();
 	}
+
 
 	private Boolean isTokenExpired(String token) {
 		Date dataExpericacao = buscarPayloadDoToken(token).getExpiration();

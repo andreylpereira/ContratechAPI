@@ -27,10 +27,12 @@ public class UsuarioController {
 		return usuarioService.findAllUsuarios();
 	}
 
+	
 	@GetMapping("/usuarios/{id}")
 	public Usuario puxarUsuarioPelaId(@PathVariable Long id) throws NotFoundException {
 		return usuarioService.findByUsuarioId(id);
 	}
+	
 
 //	@PostMapping("/cadastro")
 //	public void AdicionarUsuario(@RequestBody Usuario usuario) {
