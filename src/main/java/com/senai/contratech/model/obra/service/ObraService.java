@@ -111,7 +111,10 @@ public class ObraService {
 				percentualMedio += listaEtapas.get(i).getPercentualMedio();
 				System.out.println(percentualMedio);
 			}
-			recuperarObra.setPercentualMedioFinal(percentualMedio/listaEtapas.size());
+			recuperarObra.setPercentualMedioFinal(Math.round(percentualMedio/listaEtapas.size()));
+			//System.out.println("Media calculo" + (recuperarObra.getPercentualMedioFinal() * 0.01));
+			//System.out.println("valor total" + recuperarObra.getValorTotalFinal());
+			//recuperarObra.setValorTotalFinal(recuperarObra.getValorTotalFinal() * (recuperarObra.getPercentualMedioFinal() * 0.01));
 			
 			
 			recuperarObra.setUsuario(usuario);
