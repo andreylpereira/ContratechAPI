@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.senai.contratech.model.obra.entity.Obra;
-import com.senai.contratech.model.obra.entity.Relatorio;
 import com.senai.contratech.model.obra.service.ObraService;
 
 import javassist.NotFoundException;
@@ -64,8 +63,8 @@ public class ObraController {
 	// relatório
 	@GetMapping("/usuarios/{usuarioId}/obras/{obraId}/relatorio")
 	@Secured(value = "ROLE_USUARIO")
-	public Relatorio puxarRelatorioPelasIds(@PathVariable Long usuarioId, @PathVariable Long obraId)
+	public Obra puxarRelatorioPelasIds(@PathVariable Long usuarioId, @PathVariable Long obraId)
 			throws NotFoundException {
-		return obraService.relatorioObra(usuarioId, obraId);
+		return obraService.relatorio(usuarioId, obraId);
 	}
 }

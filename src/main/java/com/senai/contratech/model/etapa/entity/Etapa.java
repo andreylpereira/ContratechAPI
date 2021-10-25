@@ -43,7 +43,10 @@ public class Etapa {
 
 	@OneToMany(mappedBy = "etapa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Servico> servicos;
-
+	
+	private int percentualMedio;
+	private double valorTotal;
+	
 	public Etapa() {
 
 	}
@@ -84,4 +87,21 @@ public class Etapa {
 		this.servicos = servicos;
 	}
 
+	public int getPercentualMedio() {
+		return percentualMedio;
+	}
+
+	public void setPercentualMedio(int percentualMedio) {
+		this.percentualMedio = percentualMedio;
+	}
+
+	public double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	
 }

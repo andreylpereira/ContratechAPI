@@ -45,6 +45,9 @@ public class Obra {
 
 	@OneToMany(mappedBy = "obra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Etapa> etapas;
+	
+	private int percentualMedioFinal;
+	private double valorTotalFinal;
 
 	public Obra() {
 	}
@@ -84,5 +87,23 @@ public class Obra {
 	public void setEtapas(List<Etapa> etapas) {
 		this.etapas = etapas;
 	}
+
+	public int getPercentualMedioFinal() {
+		return percentualMedioFinal;
+	}
+
+	public void setPercentualMedioFinal(int percentualMedioFinal) {
+		this.percentualMedioFinal = percentualMedioFinal;
+	}
+
+	public double getValorTotalFinal() {
+		return valorTotalFinal;
+	}
+
+	public void setValorTotalFinal(double valorTotalFinal) {
+		this.valorTotalFinal = valorTotalFinal;
+	}
+	
+	
 
 }
