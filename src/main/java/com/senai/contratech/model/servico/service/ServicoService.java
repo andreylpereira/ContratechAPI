@@ -87,17 +87,33 @@ public class ServicoService {
 	public void updateAllServicos(@PathVariable Long usuarioId, @PathVariable Long obraId, @PathVariable Long etapaId,
 			@RequestBody List<Servico> servicos) throws NotFoundException {
 
+		
 		if (etapaRepository.findById(etapaId).isPresent()) {
 			Optional<Etapa> findEtapa = null;
 			findEtapa = etapaRepository.findById(etapaId);
 			Etapa etapa = new Etapa();
-
+			
 			if (!findEtapa.isEmpty()) {
 				etapa.setId(findEtapa.get().getId());
 				etapa.setObra(findEtapa.get().getObra());
 				etapa.setNomeEtapa(findEtapa.get().getNomeEtapa());
 				etapa.setServicos(servicos);
 				servicos.forEach(a -> a.setEtapa(etapa));
+		
+				double valorTotal = 0;
+				for(int i = 0; i < servicos.size(); i++) {
+					valorTotal += servicos.get(i).getPreco() * servicos.get(i).getQuantidade();
+					System.out.println(valorTotal);
+				}
+				etapa.setValorTotal(valorTotal);
+				
+				int percentualMedio = 0;
+				for(int i = 0; i < servicos.size(); i++) {
+					percentualMedio += servicos.get(i).getPorcentagem();
+					System.out.println(percentualMedio);
+				}
+				etapa.setPercentualMedio(percentualMedio/servicos.size());
+				
 			}
 
 			etapaRepository.save(etapa);

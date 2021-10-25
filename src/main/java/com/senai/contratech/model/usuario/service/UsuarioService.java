@@ -30,6 +30,7 @@ public class UsuarioService {
 		Optional<Usuario> optUsuario = usuarioRepository.findByLogin(usuario.getLogin());
 		return optUsuario.get();
 	}
+	
 
 	public Usuario findbyUsuarioEmail(Usuario usuario) {
 		Optional<Usuario> optUsuario = usuarioRepository.findByEmail(usuario.getEmail());

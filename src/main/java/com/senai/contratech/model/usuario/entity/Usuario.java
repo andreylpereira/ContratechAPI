@@ -58,6 +58,10 @@ public class Usuario {
 		this.role = "ROLE_USUARIO";
 	}
 
+	public Usuario(String login, Long id) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Long getId() {
 		return id;
 	}
