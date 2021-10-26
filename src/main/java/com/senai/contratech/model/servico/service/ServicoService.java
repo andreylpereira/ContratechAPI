@@ -103,14 +103,14 @@ public class ServicoService {
 				double valorTotal = 0;
 				for(int i = 0; i < servicos.size(); i++) {
 					valorTotal += ((servicos.get(i).getPreco() * servicos.get(i).getQuantidade()) * (servicos.get(i).getPorcentagem() * 0.01));
-					System.out.println(valorTotal);
+					//System.out.println(valorTotal);
 				}
 				etapa.setValorTotal(valorTotal);
 				
 				int percentualMedio = 0;
 				for(int i = 0; i < servicos.size(); i++) {
 					percentualMedio += servicos.get(i).getPorcentagem();
-					System.out.println(percentualMedio);
+					//System.out.println(percentualMedio);
 				}
 				etapa.setPercentualMedio(Math.round(percentualMedio/servicos.size()));
 				//etapa.setValorTotal(etapa.getValorTotal() * (etapa.getPercentualMedio() * 0.01));

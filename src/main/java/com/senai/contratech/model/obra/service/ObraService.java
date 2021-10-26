@@ -102,14 +102,14 @@ public class ObraService {
 			double valorTotal = 0;
 			for(int i = 0; i < listaEtapas.size(); i++) {
 				valorTotal += listaEtapas.get(i).getValorTotal();
-				System.out.println(valorTotal);
+				//System.out.println(valorTotal);
 			}
 			recuperarObra.setValorTotalFinal(valorTotal);
 			
 			int percentualMedio = 0;
 			for(int i = 0; i < listaEtapas.size(); i++) {
 				percentualMedio += listaEtapas.get(i).getPercentualMedio();
-				System.out.println(percentualMedio);
+				//System.out.println(percentualMedio);
 			}
 			recuperarObra.setPercentualMedioFinal(Math.round(percentualMedio/listaEtapas.size()));
 			//System.out.println("Media calculo" + (recuperarObra.getPercentualMedioFinal() * 0.01));
