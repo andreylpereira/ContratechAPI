@@ -1,5 +1,8 @@
 package com.senai.contratech.model.obra.service;
 
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 
@@ -102,21 +105,17 @@ public class ObraService {
 			double valorTotal = 0;
 			for(int i = 0; i < listaEtapas.size(); i++) {
 				valorTotal += listaEtapas.get(i).getValorTotal();
-				//System.out.println(valorTotal);
 			}
-			recuperarObra.setValorTotalFinal(valorTotal);
+			BigDecimal bd = new BigDecimal(valorTotal).setScale(2, RoundingMode.HALF_UP);
+			recuperarObra.setValorTotalFinal(bd.doubleValue());
 			
 			int percentualMedio = 0;
 			for(int i = 0; i < listaEtapas.size(); i++) {
 				percentualMedio += listaEtapas.get(i).getPercentualMedio();
-				//System.out.println(percentualMedio);
+		
 			}
 			recuperarObra.setPercentualMedioFinal(Math.round(percentualMedio/listaEtapas.size()));
-			//System.out.println("Media calculo" + (recuperarObra.getPercentualMedioFinal() * 0.01));
-			//System.out.println("valor total" + recuperarObra.getValorTotalFinal());
-			//recuperarObra.setValorTotalFinal(recuperarObra.getValorTotalFinal() * (recuperarObra.getPercentualMedioFinal() * 0.01));
-			
-			
+
 			recuperarObra.setUsuario(usuario);
 			usuarioRepository.save(usuario);
 			return recuperarObra;

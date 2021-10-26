@@ -41,12 +41,12 @@ public class Etapa {
 	@JsonIgnore
 	private Obra obra;
 
-	@OneToMany(mappedBy = "etapa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Servico> servicos;
-	
 	private int percentualMedio;
 	private double valorTotal;
-	
+
+	@OneToMany(mappedBy = "etapa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Servico> servicos;
+
 	public Etapa() {
 
 	}
@@ -103,5 +103,4 @@ public class Etapa {
 		this.valorTotal = valorTotal;
 	}
 
-	
 }
