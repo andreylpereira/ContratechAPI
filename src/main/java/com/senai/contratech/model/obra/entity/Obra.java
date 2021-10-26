@@ -32,7 +32,6 @@ public class Obra {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	
 	@Size(min = 5, max = 35, message = "O valor têm que estar entre 5 e 35 caracteres")
 	@Column(name = "nome_obra")
 	private String nomeObra;
@@ -43,11 +42,11 @@ public class Obra {
 	@JsonIgnore
 	private Usuario usuario;
 
-	@OneToMany(mappedBy = "obra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Etapa> etapas;
-	
 	private int percentualMedioFinal;
 	private double valorTotalFinal;
+
+	@OneToMany(mappedBy = "obra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Etapa> etapas;
 
 	public Obra() {
 	}
@@ -103,7 +102,5 @@ public class Obra {
 	public void setValorTotalFinal(double valorTotalFinal) {
 		this.valorTotalFinal = valorTotalFinal;
 	}
-	
-	
 
 }

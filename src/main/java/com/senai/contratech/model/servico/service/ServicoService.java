@@ -1,5 +1,7 @@
 package com.senai.contratech.model.servico.service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 
@@ -102,18 +104,17 @@ public class ServicoService {
 		
 				double valorTotal = 0;
 				for(int i = 0; i < servicos.size(); i++) {
-					valorTotal += servicos.get(i).getPreco() * servicos.get(i).getQuantidade();
-					System.out.println(valorTotal);
+					valorTotal += ((servicos.get(i).getPreco() * servicos.get(i).getQuantidade()) * (servicos.get(i).getPorcentagem() * 0.01));
 				}
-				etapa.setValorTotal(valorTotal);
+				BigDecimal bd = new BigDecimal(valorTotal).setScale(2, RoundingMode.HALF_UP);
+				etapa.setValorTotal(bd.doubleValue());
 				
 				int percentualMedio = 0;
 				for(int i = 0; i < servicos.size(); i++) {
 					percentualMedio += servicos.get(i).getPorcentagem();
-					System.out.println(percentualMedio);
 				}
-				etapa.setPercentualMedio(percentualMedio/servicos.size());
-				
+				etapa.setPercentualMedio(Math.round(percentualMedio/servicos.size()));
+
 			}
 
 			etapaRepository.save(etapa);
