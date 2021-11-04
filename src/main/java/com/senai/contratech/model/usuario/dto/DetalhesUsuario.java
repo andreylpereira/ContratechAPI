@@ -60,8 +60,7 @@ public class DetalhesUsuario implements UserDetails {
 		return authorities;
 	}
 	
-	public Long usuarioId() {
+	public Long getId() {
 		return usuario.getId();
 	}
-
 }
