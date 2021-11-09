@@ -5,7 +5,7 @@ public class DtoToken {
 	private Long id;
 	private String login;
 	private String token;
-	
+	private Boolean ativo = true;
 	
 	
 	
@@ -30,6 +30,14 @@ public class DtoToken {
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = true;
 	}
 	
 	

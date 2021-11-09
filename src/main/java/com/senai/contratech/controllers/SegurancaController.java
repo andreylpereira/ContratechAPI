@@ -20,7 +20,7 @@ import com.senai.contratech.model.usuario.service.AutenticacaoUsuarioService;
 import com.senai.contratech.seguranca.JWTHelper;
 
 @RestController
-@RequestMapping("/seguranca")
+@RequestMapping("/api")
 public class SegurancaController {
 
 	@Autowired
@@ -31,7 +31,7 @@ public class SegurancaController {
 	@Autowired
 	private JWTHelper jwtHelper;
 
-	@PostMapping("/login")
+	@PostMapping("/seguranca/login")
 	public ResponseEntity<DtoToken> buscarToken(@RequestBody Usuario usuario) {
 		
 		try {
