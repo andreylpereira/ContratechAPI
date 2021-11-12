@@ -23,7 +23,7 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
 
 		String token = request.getHeader("Authorization");
 
-		if (request.getRequestURI().contains("/seguranca/login")) {
+		if (request.getRequestURI().contains("/seguranca/login") || request.getMethod().equals("OPTIONS")) {
 			filterChain.doFilter(request, response);
 			return;
 		}
