@@ -37,7 +37,7 @@ public class Servico {
 	private double preco;
 
 	@Min(value = 0, message = "A quantidade têm que ser entre 0 e 00")
-	@Max(value = 99, message = "A quantidade têm que ser entre 0 e 00")
+	@Max(value = 99, message = "A quantidade têm que ser entre 0 e 99")
 	private int quantidade;
 
 	@Min(value = 0, message = "A porcentagem têm que ser entre 0 e 100")

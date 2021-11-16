@@ -29,6 +29,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 		
 		http.csrf().disable().authorizeRequests()
 		.antMatchers("/api/cadastro").permitAll()
+		.antMatchers("/api/cadastro/verificacao").permitAll()
 		.antMatchers("/seguranca/login").permitAll()
 		.anyRequest().authenticated();
 		
