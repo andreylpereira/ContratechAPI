@@ -1,7 +1,6 @@
 package com.senai.contratech.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +20,14 @@ public class CadastroController {
 	public void AdicionarUsuario(@RequestBody Usuario usuario) {
 		usuarioService.addUsuario(usuario);
 	}
-	@GetMapping("/cadastro/verificacao")
-	public void VerificarUsuario(@RequestBody Usuario usuario) {
-		usuarioService.findbyUsuarioName(usuario);
+	@PostMapping("/cadastro/verificacao")
+	public String VerificarUsuario(@RequestBody Usuario usuario) {
+		System.out.println(usuario);
+		Usuario retorno = usuarioService.findbyUsuarioName(usuario);
+		if(retorno.getLogin() != "") {
+			return retorno.getLogin();
+		} else {
+			return "";
+		}
 	}
 }
