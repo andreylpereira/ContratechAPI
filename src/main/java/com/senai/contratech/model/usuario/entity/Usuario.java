@@ -22,20 +22,19 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Size(min = 6, max = 20, message = "O login deve estar entre 5 e 25 caracteres")
+	@Size(min = 6, max = 20, message = "O login deve estar entre 6 e 20 caracteres")
 	private String login;
 	@NotBlank
-	@Size(max = 30, message = "O nome deve ter no maximo 25 caracteres")
+	@Size(max = 30, message = "O nome deve ter no maximo 30 caracteres")
 	private String nome;
 	@NotBlank
-	@Size(max = 30, message = "O nome deve ter no maximo 25 caracteres")
-	private String sobrenome;
+	@Size(max = 30, message = "O nome deve ter no maximo 30 caracteres")
+	private String sobrenome; 
 	@NotBlank
 	@Email(message = "Email tem que ser válido")
 	private String email;
 	 
-	//@NotBlank
-	//@Size(min = 6, max= 10, message = "O valor têm que estar entre 6 e 10 caracteres")
+
 	private String senha;
 	private Boolean ativo = true;
 
