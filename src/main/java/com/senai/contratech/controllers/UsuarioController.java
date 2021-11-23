@@ -33,9 +33,4 @@ public class UsuarioController {
 		return usuarioService.findByUsuarioId(id);
 	}
 	
-
-//	@PostMapping("/cadastro")
-//	public void AdicionarUsuario(@RequestBody Usuario usuario) {
-//		usuarioService.addUsuario(usuario);
-//	}
 }
